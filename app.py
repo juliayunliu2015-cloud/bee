@@ -1,7 +1,10 @@
 import streamlit as st
 from gtts import gTTS
-import base64
 import io
+import random
+
+# --- 1. Data Setup (Word List & Definitions) ---
+# [Include your full all_words list and word_definitions dictionary here]
 
 # --- 1. Data Setup ---
 all_words = [
@@ -9,6 +12,7 @@ all_words = [
 ]
 
 word_definitions = {
+    # ... (Keep your word_definitions dictionary as it was)
   "abiotic": "relating to or derived from non-living things.",
     "abreast": "side-by-side and facing the same way; kept up to date with the latest information.",
     "abscise": "to cut off or away; detach by shedding (used primarily in biology).",
@@ -408,10 +412,10 @@ word_definitions = {
     "wound": "an injury to living tissue caused by a cut, blow, or other impact.",
     "wrest": "to pull (something) away with a forceful twisting movement.",
     "xeric": "requiring only a small amount of moisture (used mainly in ecology).",
-    "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work.",
-    "youthfulness": "the state or quality of being young or youthful."
-}
+    "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work."
+    "youthfulness": "the state or quality of being young or youthful.",
 
+}
 proper_nouns = ["Caribbean", "Edmonton", "Neolithic", "Québécois"]
 
 # --- 2. Logic Functions ---
@@ -426,98 +430,101 @@ def text_to_speech(text):
     tts.write_to_fp(fp)
     return fp
 
-# --- 3. Streamlit State Management ---
-if 'word_index' not in st.session_state:
-    st.session_state.word_index = 0
-if 'current_group' not in st.session_state:
-    st.session_state.current_group = None
+# --- 3. Persistent State Management ---
+if 'mistakes' not in st.session_state:
+    st.session_state.mistakes = []
+if 'shuffled_queue' not in st.session_state:
+    st.session_state.shuffled_queue = []
+if 'current_group_id' not in st.session_state:
+    st.session_state.current_group_id = None
 
-# --- 4. UI Layout ---
-st.set_page_config(page_title="Vivian's Spelling Bee", page_icon="🧠")
+# --- 4. Sidebar Navigation ---
+st.sidebar.title("Navigation")
+page = st.sidebar.radio("Go to:", ["Daily Test", "My Progress"])
 
-st.markdown("""
-    <style>
-    .main { background-color: #F8F4FF; }
-    .stButton>button { background-color: #673AB7; color: white; border-radius: 8px; }
-    .mission-box { background-color: #F0E5FF; padding: 15px; border-radius: 10px; border-left: 5px solid #B39DDB; margin-bottom: 20px;}
-    </style>
-    """, unsafe_allow_html=True)
-
-st.title("🧠 Vivian's Spelling Challenge")
-
-# Sort case-insensitively
-all_words.sort(key=str.lower)
-
-# Grouping
-GROUP_SIZE = 33
-groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
-group_options = [f"Group {i+1} ({g[0][0].upper()} - {g[-1][0].upper()})" for i, g in enumerate(groups)]
-
-selected_group_name = st.selectbox("Select your word group:", ["-- select --"] + group_options)
-
-if selected_group_name != "-- select --":
-    group_idx = group_options.index(selected_group_name)
-    current_words = groups[group_idx]
+# --- PAGE 1: DAILY TEST ---
+if page == "Daily Test":
+    st.title("🧠 Vivian's Spelling Challenge")
     
-    # Reset if group changes
-    if st.session_state.current_group != group_idx:
-        st.session_state.current_group = group_idx
-        st.session_state.word_index = 0
+    # Grouping Logic
+    all_words.sort(key=str.lower)
+    GROUP_SIZE = 33
+    groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
+    group_options = [f"Group {i+1} ({g[0][0].upper()} - {g[-1][0].upper()})" for i, g in enumerate(groups)]
     
-    # Progress Display
-    st.markdown(f"""
-        <div class="mission-box">
-        💡 Daily Mission: Spell this group of {len(current_words)} words! 
-        ({st.session_state.word_index} / {len(current_words)} completed)
-        </div>
-        """, unsafe_allow_html=True)
+    selected_group_name = st.selectbox("Select your word group:", ["-- select --"] + group_options)
 
-    # Word logic
-    if st.session_state.word_index < len(current_words):
-        target_word = current_words[st.session_state.word_index]
-        word_hint = get_masked_word(target_word)
+    if selected_group_name != "-- select --":
+        group_idx = group_options.index(selected_group_name)
         
-        # 1. Audio Hint Button
-        if st.button("🔊 Click to Hear Word"):
-            audio_fp = text_to_speech(target_word)
-            st.audio(audio_fp, format="audio/mp3", autoplay=True)
+        # Shuffle new group if selected
+        if st.session_state.current_group_id != group_idx:
+            st.session_state.current_group_id = group_idx
+            # Create a shuffled version of the selected group
+            st.session_state.shuffled_queue = list(groups[group_idx])
+            random.shuffle(st.session_state.shuffled_queue)
 
-        # 2. Input Area
-        user_input = st.text_input(
-            label=f"Spell the word for: {word_hint}", 
-            placeholder="Type the full word here...",
-            key=f"input_{st.session_state.word_index}"
-        ).strip()
-        
-        col1, col2 = st.columns([1, 4])
-        
-        with col1:
-            if st.button("✅ Check"):
-                # Case sensitivity for proper nouns
-                if target_word in proper_nouns:
-                    is_correct = (user_input == target_word)
-                else:
-                    is_correct = (user_input.lower() == target_word.lower())
-                
-                if is_correct:
-                    st.success("Correct!")
-                    st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
-                    # Move to next word on button click
-                    if st.button("Next Word ➡️"):
-                        st.session_state.word_index += 1
+        if len(st.session_state.shuffled_queue) > 0:
+            target_word = st.session_state.shuffled_queue[0]
+            word_hint = get_masked_word(target_word)
+            
+            # UI
+            st.info(f"Words remaining in this session: {len(st.session_state.shuffled_queue)}")
+            
+            if st.button("🔊 Hear Word"):
+                st.audio(text_to_speech(target_word), format="audio/mp3", autoplay=True)
+
+            user_input = st.text_input(f"Spell: {word_hint}", key="spell_input").strip()
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("✅ Check"):
+                    is_correct = (user_input == target_word) if target_word in proper_nouns else (user_input.lower() == target_word.lower())
+                    
+                    if is_correct:
+                        st.success("Correct! Removing from today's list.")
+                        st.session_state.shuffled_queue.pop(0) # Remove so it doesn't reappear
                         st.rerun()
-                else:
-                    st.error(f"Incorrect. It is: {target_word}")
-                    st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
+                    else:
+                        st.error(f"Incorrect. The word was: {target_word}")
+                        # Add to mistakes list if not already there
+                        if target_word not in st.session_state.mistakes:
+                            st.session_state.mistakes.append(target_word)
+            with col2:
+                if st.button("⏭️ Skip"):
+                    # Move to the back of the line
+                    st.session_state.shuffled_queue.append(st.session_state.shuffled_queue.pop(0))
+                    st.rerun()
+        else:
+            st.balloons()
+            st.success("Group Completed! You've mastered these words for today.")
 
-        with col2:
-            if st.button("⏭️ Skip"):
-                st.session_state.word_index += 1
-                st.rerun()
+# --- PAGE 2: MY PROGRESS ---
+elif page == "My Progress":
+    st.title("📊 My Progress")
+    
+    st.subheader("❌ Words to Review")
+    if not st.session_state.mistakes:
+        st.write("🌟 No mistakes yet! You're doing great, Vivian!")
     else:
-        st.balloons()
-        st.success("Hooray! Today's mission completed.")
-else:
-    st.info("Please select a group above to start your daily mission.")
+        # Display mistakes as a clean list with definitions
+        for m_word in st.session_state.mistakes:
+            with st.expander(f"🚩 {m_word}"):
+                st.write(f"**Definition:** {word_definitions.get(m_word, 'N/A')}")
+        
+        if st.button("Clear Review List"):
+            st.session_state.mistakes = []
+            st.rerun()
 
-
+    st.divider()
+    st.subheader("🗑️ Reset All Data")
+    confirm_reset = st.checkbox("I am sure I want to reset all my progress and mistake history.")
+    if st.button("Reset Everything"):
+        if confirm_reset:
+            st.session_state.mistakes = []
+            st.session_state.shuffled_queue = []
+            st.session_state.current_group_id = None
+            st.success("All data has been wiped.")
+            st.rerun()
+        else:
+            st.warning("Please check the box above to confirm reset.")
