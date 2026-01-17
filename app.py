@@ -4,13 +4,12 @@ import base64
 import io
 
 # --- 1. Data Setup ---
-# (Truncated for brevity, but includes the full logic from your HTML)
 all_words = [
     "abiotic", "abreast", "abscise", "abstraction", "acclimate", "acknowledgment", "adrenaline", "advancement", "aerophyte", "affordable", "aggressive", "alate", "algorithms", "allegation", "alliteration", "alteration", "alternate", "amputation", "anarchist", "anticipation", "antiquity", "apparent", "applicable", "arcane", "armaments", "arpeggio", "assortment", "authentic", "ballium", "balustrade", "barometer", "battlements", "bellicose", "bequeath", "bifurcate", "biofuel", "biopsy", "blandishments", "brassica", "bravura", "brio", "brougham", "calends", "cannelloni", "cantaloupe", "carat", "Caribbean", "carrel", "cataplexy", "catapult", "cathartic", "cavernous", "celeriac", "cerise", "chalice", "chaperone", "chiton", "chronograph", "churlish", "cinnabar", "circumpolar", "claimant", "clevis", "clinician", "cognac", "collided", "colloquial", "commensurate", "commonality", "community", "commutative", "compatible", "compelling", "comprehend", "compromise", "concision", "concussion", "confederation", "consequently", "constituency", "contaminants", "contraction", "copyright", "corona", "corridor", "cosmetologist", "croquet", "cupreous", "curtailment", "dactyl", "dauntingly", "decadent", "decating", "declamatory", "defamation", "definitely", "delirium", "deluge", "demographics", "demonstrable", "denotation", "denudation", "deportment", "derivatives", "desirable", "destructive", "desultory", "deviate", "devour", "differential", "diffraction", "dignitaries", "diligence", "discontinue", "disgruntled", "disparity", "dispassionate", "dispensary", "distasteful", "distillation", "distributor", "diversity", "dolour", "dugong", "echinoid", "ecocidal", "Edmonton", "electrostatic", "emergency", "encounter", "endowment", "engulfed", "enigmatic", "environment", "epicanthus", "equitation", "equivocate", "eristic", "ermine", "espousal", "etching", "exiguous", "expectancy", "expunge", "exuviate", "factual", "falcate", "fatalistic", "ferity", "figurine", "finale", "finials", "fondant", "foreclosure", "forgetfulness", "fortuitous", "frugivore", "fugitive", "fundamental", "gambol", "generalities", "generation", "generator", "gloaming", "graduation", "gregale", "grimace", "groundsel", "gymnasium", "hallux", "hellebore", "hemispheric", "herbage", "hoist", "holystone", "homograph", "horoscope", "hospitable", "hovel", "hydrophone", "idiom", "illogical", "immigration", "imperative", "imperial", "imperturbable", "implement", "impudence", "inaccurate", "incentive", "inclusivity", "individual", "inductee", "inference", "infringement", "inheritance", "installation", "insulation", "intergalactic", "interglacial", "interrogation", "intimation", "irenic", "irresolute", "jewelweed", "juncture", "juvenescent", "kepi", "kombucha", "laceration", "lanate", "legitimate", "levanter", "lexigrams", "li", "limitation", "llama", "logophile", "longevity", "lucrative", "ludicrous", "macadamia", "macerate", "magnificent", "malaise", "malingerer", "mandir", "mansard", "melange", "mentor", "miracle", "misconception", "misconduct", "misdirected", "misnomer", "moderate", "monstrosity", "montage", "moraine", "motivate", "multimedia", "mutilation", "mythological", "narrative", "necropolis", "Neolithic", "nonjudgmental", "notification", "nouveau", "nutrients", "oakum", "obstinate", "ombre", "opah", "orientation", "origami", "osmosis", "otherworldly", "panini", "pannier", "pantropical", "paramount", "paternalistic", "pemmican", "penitentiary", "penury", "perception", "peripherally", "perlite", "permanent", "perpetual", "persistent", "personification", "pessimistic", "pesticide", "physiotherapy", "piquancy", "plicate", "pochard", "policymaker", "polypore", "porridge", "potable", "precatory", "preeminent", "premonition", "presage", "prescind", "prevalence", "prioress", "procedural", "proclamation", "professional", "projection", "pronounce", "proofread", "propagation", "proposition", "protectorate", "psaltery", "puissant", "puritanical", "purported", "quadrat", "quandary", "Québécois", "quinary", "raucous", "reallocation", "recreation", "refrigerate", "reimagine", "relegated", "remembrance", "reptilian", "reputation", "requirement", "residential", "resonated", "retention", "reverie", "rhebok", "rhonchus", "roustabout", "routine", "rufous", "sabbatical", "sanitary", "sapient", "saturate", "scamper", "scurried", "semipermeable", "semiquaver", "sensational", "sequel", "serialization", "shroud", "sifaka", "significant", "sinecure", "sinuous", "smorgasbord", "solvency", "sophism", "spherical", "squalid", "stalwart", "staminate", "stoppage", "strenuous", "substance", "suffocate", "summation", "swerve", "synthetic", "tableaux", "tactile", "tamarin", "telemetry", "terminal", "theodolite", "thesaurus", "thoroughbred", "tomalley", "traipse", "transcend", "transgress", "tropism", "truism", "trustworthy", "ultramarathon", "unique", "unmitigated", "unpalatable", "unshakable", "unshakeable", "utopia", "vanguard", "vaporize", "varve", "velocity", "veracious", "verrucose", "viator", "vindicated", "vitality", "volitive", "vulcanize", "wale", "wanton", "wearisome", "whimper", "whimsical", "winnow", "witheringly", "wound", "wrest", "xeric", "yeoman", "youthfulness"
 ]
 
-# Paste your wordDefinitions dictionary here (keeping original mapping)
 word_definitions = {
+    # ... (Keep your word_definitions dictionary as it was)
   "abiotic": "relating to or derived from non-living things.",
     "abreast": "side-by-side and facing the same way; kept up to date with the latest information.",
     "abscise": "to cut off or away; detach by shedding (used primarily in biology).",
@@ -410,8 +409,9 @@ word_definitions = {
     "wound": "an injury to living tissue caused by a cut, blow, or other impact.",
     "wrest": "to pull (something) away with a forceful twisting movement.",
     "xeric": "requiring only a small amount of moisture (used mainly in ecology).",
-    "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work.",
+    "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work."
     "youthfulness": "the state or quality of being young or youthful."
+
 }
 
 proper_nouns = ["Caribbean", "Edmonton", "Neolithic", "Québécois"]
@@ -433,8 +433,6 @@ if 'word_index' not in st.session_state:
     st.session_state.word_index = 0
 if 'current_group' not in st.session_state:
     st.session_state.current_group = None
-if 'score' not in st.session_state:
-    st.session_state.score = 0
 
 # --- 4. UI Layout ---
 st.set_page_config(page_title="Vivian's Spelling Bee", page_icon="🧠")
@@ -449,14 +447,12 @@ st.markdown("""
 
 st.title("🧠 Vivian's Spelling Challenge")
 
-
+# Sort case-insensitively
 all_words.sort(key=str.lower)
 
-# This will group them after sorting
+# Grouping
 GROUP_SIZE = 33
 groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
-
-
 group_options = [f"Group {i+1} ({g[0][0].upper()} - {g[-1][0].upper()})" for i, g in enumerate(groups)]
 
 selected_group_name = st.selectbox("Select your word group:", ["-- select --"] + group_options)
@@ -478,90 +474,50 @@ if selected_group_name != "-- select --":
         </div>
         """, unsafe_allow_html=True)
 
+    # Word logic
     if st.session_state.word_index < len(current_words):
         target_word = current_words[st.session_state.word_index]
+        word_hint = get_masked_word(target_word)
         
-# --- Replacement Code Section ---
-
-if st.session_state.word_index < len(current_words):
-    target_word = current_words[st.session_state.word_index]
-    word_hint = get_masked_word(target_word)
-    
-    # 1. Audio Hint Button
-    if st.button("🔊 Click to Hear Word"):
-        audio_fp = text_to_speech(target_word)
-        st.audio(audio_fp, format="audio/mp3", autoplay=True)
-
-    # 2. Clean Text Input Box
-    # We use the masked word (e.g., _b__t_c) as the instruction label for the box
-    user_input = st.text_input(
-        label=f"Spell the word for: {word_hint}", 
-        placeholder="Type the full word here...",
-        key=f"input_{st.session_state.word_index}"
-    ).strip()
-    
-    # 3. Action Buttons
-    col1, col2 = st.columns([1, 4]) # Adjusts button width
-    
-    with col1:
-        if st.button("✅ Check"):
-            # Case sensitivity logic for proper nouns
-            if target_word in proper_nouns:
-                is_correct = (user_input == target_word)
-            else:
-                is_correct = (user_input.lower() == target_word.lower())
-            
-            if is_correct:
-                st.success(f"Correct!")
-                st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
-                # Use a small delay or a 'Next' button if you don't want it to skip immediately
-                if st.button("Next Word ➡️"):
-                    st.session_state.word_index += 1
-                    st.rerun()
-            else:
-                st.error(f"Incorrect. It is: {target_word}")
-                st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
-
-    with col2:
-        if st.button("⏭️ Skip"):
-            st.session_state.word_index += 1
-            st.rerun()
-
-
-            
-        # Audio Hint
-        if st.button("🔊 Hear Word Hint"):
+        # 1. Audio Hint Button
+        if st.button("🔊 Click to Hear Word"):
             audio_fp = text_to_speech(target_word)
             st.audio(audio_fp, format="audio/mp3", autoplay=True)
 
-        # Input Area
-        user_input = st.text_input("Type the full word here:", key=f"input_{st.session_state.word_index}").strip()
+        # 2. Input Area
+        user_input = st.text_input(
+            label=f"Spell the word for: {word_hint}", 
+            placeholder="Type the full word here...",
+            key=f"input_{st.session_state.word_index}"
+        ).strip()
         
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns([1, 4])
         
         with col1:
-            if st.button("✅ Check Word"):
-                is_correct = False
+            if st.button("✅ Check"):
+                # Case sensitivity for proper nouns
                 if target_word in proper_nouns:
                     is_correct = (user_input == target_word)
                 else:
                     is_correct = (user_input.lower() == target_word.lower())
                 
                 if is_correct:
-                    st.success(f"Correct! Great job!")
+                    st.success("Correct!")
                     st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
-                    st.session_state.word_index += 1
-                    st.rerun()
+                    # Move to next word on button click
+                    if st.button("Next Word ➡️"):
+                        st.session_state.word_index += 1
+                        st.rerun()
                 else:
-                    st.error(f"Incorrect. The correct word was: {target_word}")
+                    st.error(f"Incorrect. It is: {target_word}")
                     st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
 
         with col2:
-            if st.button("➡️ Skip Word"):
+            if st.button("⏭️ Skip"):
                 st.session_state.word_index += 1
                 st.rerun()
     else:
         st.balloons()
-        st.success("Hooray! Today's mission completed. Select a new group to continue.")
+        st.success("Hooray! Today's mission completed.")
 else:
-    st.write("Please select a group above to start your daily mission.")
+    st.info("Please select a group above to start your daily mission.")
