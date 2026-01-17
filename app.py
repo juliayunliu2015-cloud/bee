@@ -444,7 +444,7 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
         /* --- MAIN AREA: LIGHT TEXT --- */
-    .stApp label, .stApp p, .stApp h3 {
+    .stApp label,  .stApp h3 {
         color: #F3E5F5 !important;
     }
     .stApp {
@@ -570,6 +570,7 @@ elif page == "My Star Progress":
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
+
 
 
 
