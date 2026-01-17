@@ -9,7 +9,6 @@ all_words = [
 ]
 
 word_definitions = {
-    # ... (Keep your word_definitions dictionary as it was)
   "abiotic": "relating to or derived from non-living things.",
     "abreast": "side-by-side and facing the same way; kept up to date with the latest information.",
     "abscise": "to cut off or away; detach by shedding (used primarily in biology).",
@@ -410,8 +409,7 @@ word_definitions = {
     "wrest": "to pull (something) away with a forceful twisting movement.",
     "xeric": "requiring only a small amount of moisture (used mainly in ecology).",
     "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work."
-    "youthfulness": "the state or quality of being young or youthful.",
-
+    "youthfulness": "the state or quality of being young or youthful."
 }
 
 proper_nouns = ["Caribbean", "Edmonton", "Neolithic", "Québécois"]
@@ -521,3 +519,4 @@ if selected_group_name != "-- select --":
         st.success("Hooray! Today's mission completed.")
 else:
     st.info("Please select a group above to start your daily mission.")
+
