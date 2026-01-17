@@ -443,7 +443,10 @@ st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨")
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-    
+        /* --- MAIN AREA: LIGHT TEXT --- */
+    .stApp label, .stApp p, .stApp h3 {
+        color: #F3E5F5 !important;
+    }
     .stApp {
         background: radial-gradient(circle at top, #1e0033 0%, #0a001a 100%);
         font-family: 'Poppins', sans-serif !important;
@@ -463,10 +466,7 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* --- MAIN AREA: LIGHT TEXT --- */
-    .stApp label, .stApp p, .stApp h3 {
-        color: #F3E5F5 !important;
-    }
+
 
     /* --- CLEAN CARD (NO GHOST BOXES) --- */
     .content-box {
@@ -570,6 +570,7 @@ elif page == "My Star Progress":
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
+
 
 
 
