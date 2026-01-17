@@ -4,13 +4,15 @@ import io
 import random
 
 # --- 1. DATA SETUP ---
-# All words sorted correctly with Proper Nouns in their alphabetical place
+
+# --- 1. Data Setup ---
 all_words = [
     "abiotic", "abreast", "abscise", "abstraction", "acclimate", "acknowledgment", "adrenaline", "advancement", "aerophyte", "affordable", "aggressive", "alate", "algorithms", "allegation", "alliteration", "alteration", "alternate", "amputation", "anarchist", "anticipation", "antiquity", "apparent", "applicable", "arcane", "armaments", "arpeggio", "assortment", "authentic", "ballium", "balustrade", "barometer", "battlements", "bellicose", "bequeath", "bifurcate", "biofuel", "biopsy", "blandishments", "brassica", "bravura", "brio", "brougham", "calends", "cannelloni", "cantaloupe", "carat", "Caribbean", "carrel", "cataplexy", "catapult", "cathartic", "cavernous", "celeriac", "cerise", "chalice", "chaperone", "chiton", "chronograph", "churlish", "cinnabar", "circumpolar", "claimant", "clevis", "clinician", "cognac", "collided", "colloquial", "commensurate", "commonality", "community", "commutative", "compatible", "compelling", "comprehend", "compromise", "concision", "concussion", "confederation", "consequently", "constituency", "contaminants", "contraction", "copyright", "corona", "corridor", "cosmetologist", "croquet", "cupreous", "curtailment", "dactyl", "dauntingly", "decadent", "decating", "declamatory", "defamation", "definitely", "delirium", "deluge", "demographics", "demonstrable", "denotation", "denudation", "deportment", "derivatives", "desirable", "destructive", "desultory", "deviate", "devour", "differential", "diffraction", "dignitaries", "diligence", "discontinue", "disgruntled", "disparity", "dispassionate", "dispensary", "distasteful", "distillation", "distributor", "diversity", "dolour", "dugong", "echinoid", "ecocidal", "Edmonton", "electrostatic", "emergency", "encounter", "endowment", "engulfed", "enigmatic", "environment", "epicanthus", "equitation", "equivocate", "eristic", "ermine", "espousal", "etching", "exiguous", "expectancy", "expunge", "exuviate", "factual", "falcate", "fatalistic", "ferity", "figurine", "finale", "finials", "fondant", "foreclosure", "forgetfulness", "fortuitous", "frugivore", "fugitive", "fundamental", "gambol", "generalities", "generation", "generator", "gloaming", "graduation", "gregale", "grimace", "groundsel", "gymnasium", "hallux", "hellebore", "hemispheric", "herbage", "hoist", "holystone", "homograph", "horoscope", "hospitable", "hovel", "hydrophone", "idiom", "illogical", "immigration", "imperative", "imperial", "imperturbable", "implement", "impudence", "inaccurate", "incentive", "inclusivity", "individual", "inductee", "inference", "infringement", "inheritance", "installation", "insulation", "intergalactic", "interglacial", "interrogation", "intimation", "irenic", "irresolute", "jewelweed", "juncture", "juvenescent", "kepi", "kombucha", "laceration", "lanate", "legitimate", "levanter", "lexigrams", "li", "limitation", "llama", "logophile", "longevity", "lucrative", "ludicrous", "macadamia", "macerate", "magnificent", "malaise", "malingerer", "mandir", "mansard", "melange", "mentor", "miracle", "misconception", "misconduct", "misdirected", "misnomer", "moderate", "monstrosity", "montage", "moraine", "motivate", "multimedia", "mutilation", "mythological", "narrative", "necropolis", "Neolithic", "nonjudgmental", "notification", "nouveau", "nutrients", "oakum", "obstinate", "ombre", "opah", "orientation", "origami", "osmosis", "otherworldly", "panini", "pannier", "pantropical", "paramount", "paternalistic", "pemmican", "penitentiary", "penury", "perception", "peripherally", "perlite", "permanent", "perpetual", "persistent", "personification", "pessimistic", "pesticide", "physiotherapy", "piquancy", "plicate", "pochard", "policymaker", "polypore", "porridge", "potable", "precatory", "preeminent", "premonition", "presage", "prescind", "prevalence", "prioress", "procedural", "proclamation", "professional", "projection", "pronounce", "proofread", "propagation", "proposition", "protectorate", "psaltery", "puissant", "puritanical", "purported", "quadrat", "quandary", "Québécois", "quinary", "raucous", "reallocation", "recreation", "refrigerate", "reimagine", "relegated", "remembrance", "reptilian", "reputation", "requirement", "residential", "resonated", "retention", "reverie", "rhebok", "rhonchus", "roustabout", "routine", "rufous", "sabbatical", "sanitary", "sapient", "saturate", "scamper", "scurried", "semipermeable", "semiquaver", "sensational", "sequel", "serialization", "shroud", "sifaka", "significant", "sinecure", "sinuous", "smorgasbord", "solvency", "sophism", "spherical", "squalid", "stalwart", "staminate", "stoppage", "strenuous", "substance", "suffocate", "summation", "swerve", "synthetic", "tableaux", "tactile", "tamarin", "telemetry", "terminal", "theodolite", "thesaurus", "thoroughbred", "tomalley", "traipse", "transcend", "transgress", "tropism", "truism", "trustworthy", "ultramarathon", "unique", "unmitigated", "unpalatable", "unshakable", "unshakeable", "utopia", "vanguard", "vaporize", "varve", "velocity", "veracious", "verrucose", "viator", "vindicated", "vitality", "volitive", "vulcanize", "wale", "wanton", "wearisome", "whimper", "whimsical", "winnow", "witheringly", "wound", "wrest", "xeric", "yeoman", "youthfulness"
 ]
 
 word_definitions = {
-    "abiotic": "relating to or derived from non-living things.",
+    # ... (Keep your word_definitions dictionary as it was)
+  "abiotic": "relating to or derived from non-living things.",
     "abreast": "side-by-side and facing the same way; kept up to date with the latest information.",
     "abscise": "to cut off or away; detach by shedding (used primarily in biology).",
     "abstraction": "the quality of dealing with ideas rather than events; a concept or idea not associated with any specific instance.",
@@ -386,7 +388,7 @@ word_definitions = {
     "unmitigated": "absolute; unqualified.",
     "unpalatable": "not pleasant to taste; difficult to accept or tolerate.",
     "unshakable": "not able to be disputed, questioned, or lessened; firm.",
-    "unshakeable": "not able to be disputed, questioned, or lessened; firm.",
+    "unshakeable": "an alternative spelling of 'unshakable'.",
     "utopia": "an imagined place or state of things in which everything is perfect.",
     "vanguard": "a group of people leading the way in new ideas or developments.",
     "vaporize": "to convert or change into vapor or gas.",
@@ -410,7 +412,8 @@ word_definitions = {
     "wrest": "to pull (something) away with a forceful twisting movement.",
     "xeric": "requiring only a small amount of moisture (used mainly in ecology).",
     "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work.",
-    "youthfulness": "the state or quality of being young or youthful."
+    "youthfulness": "the state or quality of being young or youthful.",
+
 }
 
 proper_nouns = ["Caribbean", "Edmonton", "Neolithic", "Québécois"]
@@ -435,88 +438,103 @@ if 'shuffled_queue' not in st.session_state:
 if 'current_group_id' not in st.session_state:
     st.session_state.current_group_id = None
 
-# --- 4. MAGICAL ANIME UI STYLING ---
-st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨")
+# --- 4. REFINED ANIME UI STYLING ---
+st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨", layout="centered")
 
 st.markdown("""
     <style>
-    /* Main Background */
+    /* Global Clean Font - No Comic Sans */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    
+    html, body, [class*="css"]  {
+        font-family: 'Poppins', 'Segoe UI', sans-serif !important;
+    }
+
     .stApp {
-        background: linear-gradient(135deg, #1a0033 0%, #4b0082 50%, #8a2be2 100%);
+        background: radial-gradient(circle at top, #2e004f 0%, #120024 100%);
     }
 
-    /* Magical Glass Container */
-    [data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 25px;
-        border: 2px solid #b39ddb;
-        box-shadow: 0 0 20px rgba(179, 157, 219, 0.5);
-        margin-bottom: 20px;
+    /* Magical Glass Card */
+    .magic-card {
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 30px;
+        border: 1px solid rgba(179, 157, 219, 0.3);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        margin-bottom: 25px;
     }
 
-    /* Magical Buttons */
+    /* Refined Buttons */
     .stButton>button {
-        background: linear-gradient(45deg, #7e57c2, #b39ddb);
+        background: linear-gradient(135deg, #9c27b0, #673ab7);
         color: white !important;
-        border-radius: 50px;
-        border: 2px solid #fff;
-        font-weight: bold;
-        transition: 0.3s;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        width: 100%;
+        border-radius: 12px;
+        border: none;
+        padding: 10px 20px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 0.9rem;
     }
+    
     .stButton>button:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 25px #fff;
+        background: linear-gradient(135deg, #ba68c8, #9575cd);
+        box-shadow: 0 0 20px rgba(186, 104, 200, 0.6);
+        transform: translateY(-2px);
     }
 
-    /* Text Colors & Fonts */
-    h1, h2, h3, p, label, .stMarkdown {
-        color: #e1bee7 !important;
-        font-family: cursive, sans-serif;
-    }
-    
-    /* Input Box Styling */
-    input {
-        background-color: rgba(255, 255, 255, 0.9) !important;
-        color: #4b0082 !important;
-        border-radius: 10px !important;
-        font-size: 1.2rem !important;
+    /* Glowing Titles */
+    h1 {
+        color: #f3e5f5 !important;
+        text-shadow: 0 0 15px rgba(225, 190, 231, 0.4);
+        font-weight: 600 !important;
     }
 
-    /* Sidebar Styling */
+    /* Input Styling */
+    .stTextInput>div>div>input {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        border-radius: 12px !important;
+        border: 2px solid #b39ddb !important;
+        color: #2e004f !important;
+        padding: 15px !important;
+        font-weight: 600;
+    }
+
+    /* Sidebar Refinement */
     [data-testid="stSidebar"] {
-        background-color: rgba(26, 0, 51, 0.8) !important;
+        background-color: #0d001a !important;
+        border-right: 1px solid #331a4d;
     }
-    
-    /* Success/Error Alerts */
-    .stAlert {
-        border-radius: 15px !important;
+
+    /* Metric/Text Colors */
+    .stMarkdown p, .stMarkdown h3 {
+        color: #d1c4e9 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
 # --- 5. NAVIGATION ---
-st.sidebar.markdown("# 🌙 Magical Menu")
-page = st.sidebar.radio("Go to:", ["Daily Mission", "My Star Progress"])
+st.sidebar.markdown("# 🌙 Magic Menu")
+page = st.sidebar.radio("Selection:", ["Daily Mission", "My Star Progress"])
 
 # --- PAGE 1: DAILY MISSION ---
 if page == "Daily Mission":
-    st.title("✨ Vivian's Magical Academy")
+    st.title("✨ Magical Academy")
     
     all_words.sort(key=str.lower)
     GROUP_SIZE = 33
     groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
-    group_options = [f"🔮 Scroll {i+1} ({g[0][0].upper()}-{g[-1][0].upper()})" for i, g in enumerate(groups)]
+    group_options = [f"Scroll {i+1} ({g[0][0].upper()}-{g[-1][0].upper()})" for i, g in enumerate(groups)]
     
-    selected_group_name = st.selectbox("Choose your Magic Scroll:", ["-- pick a scroll --"] + group_options)
+    st.markdown('<div class="magic-card">', unsafe_allow_html=True)
+    selected_group_name = st.selectbox("Choose a Magic Scroll to begin:", ["-- Select Scroll --"] + group_options)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    if selected_group_name != "-- pick a scroll --":
+    if selected_group_name != "-- Select Scroll --":
         group_idx = group_options.index(selected_group_name)
         
-        # Shuffle new group if selected
         if st.session_state.current_group_id != group_idx:
             st.session_state.current_group_id = group_idx
             st.session_state.shuffled_queue = list(groups[group_idx])
@@ -526,73 +544,68 @@ if page == "Daily Mission":
             target_word = st.session_state.shuffled_queue[0]
             word_hint = get_masked_word(target_word)
             
-            st.markdown(f"### 📖 Spell power needed: {len(st.session_state.shuffled_queue)} words left!")
+            st.markdown(f"### 📖 Spell Energy: {len(st.session_state.shuffled_queue)} words to go")
             
-            # Use columns for layout
-            if st.button("🎵 Listen to the Secret Word"):
+            # --- WORD AREA ---
+            st.markdown('<div class="magic-card">', unsafe_allow_html=True)
+            
+            st.write(f"**Mystery Word:** `{word_hint}`")
+            
+            if st.button("🎵 Listen to the Word"):
                 st.audio(text_to_speech(target_word), format="audio/mp3", autoplay=True)
 
             user_input = st.text_input(
-                f"Decode the magic: {word_hint}", 
-                key="spell_input", 
-                placeholder="Type the secret word here..."
+                "Cast your spell below:", 
+                key=f"input_{target_word}",
+                placeholder="Type the word carefully..."
             ).strip()
             
-            # --- ACTION ---
             if st.button("🪄 Cast Magical Spell!"):
-                # Case sensitivity check
-                if target_word in proper_nouns:
-                    is_correct = (user_input == target_word)
-                else:
-                    is_correct = (user_input.lower() == target_word.lower())
+                is_correct = (user_input == target_word) if target_word in proper_nouns else (user_input.lower() == target_word.lower())
                 
                 if is_correct:
-                    st.success("✨ Magical Success! You unlocked this word!")
-                    st.session_state.shuffled_queue.pop(0) 
                     st.balloons()
-                    # Trigger a rerun to show next word immediately
-                    st.button("Next Magic Word ➡")
+                    st.success("✨ Perfect! The spell worked!")
+                    st.session_state.shuffled_queue.pop(0) 
+                    st.button("Continue ➡")
                 else:
-                    st.error(f"Oh no! The magic fizzled. The word was: {target_word}")
-                    st.info(f"**Meaning:** {word_definitions.get(target_word, 'Unknown Magic')}")
-                    # Add to review list
+                    st.error(f"The magic fizzled! The word was: {target_word}")
                     if target_word not in st.session_state.mistakes:
                         st.session_state.mistakes.append(target_word)
+            
+            st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.balloons()
-            st.success("🌈 Amazing! You've mastered this scroll! Vivian is a Master Magician!")
-    else:
-        st.info("Please choose a Magic Scroll from the list above to begin your training!")
+            st.success("🌈 Mission Accomplished! You are a Spelling Master!")
+            if st.button("Restart Scroll"):
+                st.session_state.current_group_id = None
+                st.rerun()
 
 # --- PAGE 2: MY STAR PROGRESS ---
 elif page == "My Star Progress":
-    st.title("⭐ Vivian's Star Progress")
+    st.title("⭐ Star Progress")
     
-    st.subheader("❌ Words to Practice")
+    st.markdown('<div class="magic-card">', unsafe_allow_html=True)
+    st.subheader("❌ Words to Review")
     if not st.session_state.mistakes:
-        st.write("🌈 No mistakes yet! You're a natural-born spellcaster, Vivian!")
+        st.write("🌟 No mistakes found! You're doing amazing, Vivian!")
     else:
-        st.write("Here are the words that need more magic practice:")
         for m_word in st.session_state.mistakes:
             with st.expander(f"🔮 {m_word}"):
-                st.write(f"**The Secret Meaning:** {word_definitions.get(m_word, 'No definition found.')}")
+                st.write(f"**Meaning:** {word_definitions.get(m_word, 'Search dictionary for details.')}")
         
-        if st.button("Clear Practice List"):
+        if st.button("Clear Mistake List"):
             st.session_state.mistakes = []
             st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    st.divider()
-    
-    # Reset Logic
-    st.subheader("🧹 Reset Magical Library")
-    confirm_reset = st.checkbox("I am sure I want to clear all my magic and start over.")
-    if st.button("Reset Everything"):
-        if confirm_reset:
+    st.markdown('<div class="magic-card">', unsafe_allow_html=True)
+    st.subheader("🗑️ Reset Academy Data")
+    confirm = st.checkbox("I want to clear all history.")
+    if st.button("Reset All Data"):
+        if confirm:
             st.session_state.mistakes = []
             st.session_state.shuffled_queue = []
             st.session_state.current_group_id = None
-            st.success("The library has been wiped clean. Starting fresh!")
             st.rerun()
-        else:
-            st.warning("Please check the magic box above to confirm you want to reset.")
-
+    st.markdown('</div>', unsafe_allow_html=True)
