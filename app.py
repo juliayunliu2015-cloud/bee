@@ -449,10 +449,14 @@ st.markdown("""
 
 st.title("🧠 Vivian's Spelling Challenge")
 
-# Group Selection
+
+all_words.sort(key=str.lower)
+
+# This will group them after sorting
 GROUP_SIZE = 33
-all_words.sort()
 groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
+
+
 group_options = [f"Group {i+1} ({g[0][0].upper()} - {g[-1][0].upper()})" for i, g in enumerate(groups)]
 
 selected_group_name = st.selectbox("Select your word group:", ["-- select --"] + group_options)
