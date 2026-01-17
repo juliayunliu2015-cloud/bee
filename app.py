@@ -449,32 +449,44 @@ st.markdown("""
         font-family: 'Poppins', sans-serif !important;
     }
 
-    /* Target the text above inputs and selects specifically */
-    label, p, h3, .stMarkdown {
-        color: #F3E5F5 !important;
+    /* --- SIDEBAR: DARK TEXT FOR READABILITY --- */
+    [data-testid="stSidebar"] {
+        background-color: #F0E5FF !important; /* Light background */
+    }
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] label, 
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span {
+        color: #1A0033 !important; /* Dark purple/black text */
         font-weight: 600 !important;
     }
 
+    /* --- MAIN AREA: LIGHT TEXT FOR CONTRAST --- */
+    .stApp label, .stApp p, .stApp h3 {
+        color: #F3E5F5 !important;
+    }
 
-    /* Input & Select Box visibility */
+    /* --- REMOVE GHOST BOXES --- */
+    /* This only draws the box if there is actual content inside the markdown */
+    .content-box {
+        background: rgba(45, 10, 85, 0.9);
+        border: 2px solid #9575cd;
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
     .stSelectbox div[data-baseweb="select"], input {
         background-color: #ffffff !important;
         color: #1a0033 !important;
-        border: 2px solid #7b1fa2 !important;
-        border-radius: 8px !important;
     }
 
-    /* Buttons */
     .stButton>button {
         background: #7b1fa2 !important;
         color: #ffffff !important;
         border: 2px solid #e1bee7 !important;
-        font-weight: 600;
-        width: 100%;
         border-radius: 10px;
-    }
-    .stButton>button:hover {
-        background: #9c27b0 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -565,4 +577,5 @@ elif page == "My Star Progress":
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
+
 
