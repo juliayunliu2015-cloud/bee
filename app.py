@@ -455,15 +455,6 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* Style the actual Magic Box */
-    [data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
-        background: rgba(45, 10, 85, 0.95) !important;
-        border-radius: 20px;
-        padding: 20px;
-        border: 2px solid #9575cd;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        margin-bottom: 10px;
-    }
 
     /* Input & Select Box visibility */
     .stSelectbox div[data-baseweb="select"], input {
@@ -568,3 +559,4 @@ elif page == "My Star Progress":
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
+
