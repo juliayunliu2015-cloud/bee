@@ -475,7 +475,7 @@ st.markdown("""
     /* Text Colors & Fonts */
     h1, h2, h3, p, label, .stMarkdown {
         color: #e1bee7 !important;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-family: cursive, sans-serif;
     }
     
     /* Input Box Styling */
@@ -595,3 +595,4 @@ elif page == "My Star Progress":
             st.rerun()
         else:
             st.warning("Please check the magic box above to confirm you want to reset.")
+
