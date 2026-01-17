@@ -408,7 +408,7 @@ word_definitions = {
     "wound": "an injury to living tissue caused by a cut, blow, or other impact.",
     "wrest": "to pull (something) away with a forceful twisting movement.",
     "xeric": "requiring only a small amount of moisture (used mainly in ecology).",
-    "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work."
+    "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work.",
     "youthfulness": "the state or quality of being young or youthful."
 }
 
@@ -519,4 +519,5 @@ if selected_group_name != "-- select --":
         st.success("Hooray! Today's mission completed.")
 else:
     st.info("Please select a group above to start your daily mission.")
+
 
