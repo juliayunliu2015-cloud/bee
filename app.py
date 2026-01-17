@@ -449,44 +449,37 @@ st.markdown("""
         font-family: 'Poppins', sans-serif !important;
     }
 
-    /* --- SIDEBAR: DARK TEXT FOR READABILITY --- */
+    /* --- SIDEBAR: FORCING DARK TEXT --- */
     [data-testid="stSidebar"] {
-        background-color: #F0E5FF !important; /* Light background */
+        background-color: #F0E5FF !important; /* Light Lavender Background */
     }
-    [data-testid="stSidebar"] h1, 
-    [data-testid="stSidebar"] label, 
-    [data-testid="stSidebar"] p,
+
+    /* Target the navigation labels specifically */
+    [data-testid="stSidebar"] .st-emotion-cache-17l684g, 
+    [data-testid="stSidebar"] p, 
+    [data-testid="stSidebar"] label,
     [data-testid="stSidebar"] span {
-        color: #1A0033 !important; /* Dark purple/black text */
+        color: #1A0033 !important; /* Deep Dark Purple/Black */
         font-weight: 600 !important;
     }
 
-    /* --- MAIN AREA: LIGHT TEXT FOR CONTRAST --- */
+    /* --- MAIN AREA: LIGHT TEXT --- */
     .stApp label, .stApp p, .stApp h3 {
         color: #F3E5F5 !important;
     }
 
-    /* --- REMOVE GHOST BOXES --- */
-    /* This only draws the box if there is actual content inside the markdown */
+    /* --- CLEAN CARD (NO GHOST BOXES) --- */
     .content-box {
-        background: rgba(45, 10, 85, 0.9);
+        background: rgba(45, 10, 85, 0.95);
         border: 2px solid #9575cd;
         border-radius: 15px;
         padding: 20px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 0px;
     }
 
     .stSelectbox div[data-baseweb="select"], input {
         background-color: #ffffff !important;
         color: #1a0033 !important;
-    }
-
-    .stButton>button {
-        background: #7b1fa2 !important;
-        color: #ffffff !important;
-        border: 2px solid #e1bee7 !important;
-        border-radius: 10px;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -577,5 +570,6 @@ elif page == "My Star Progress":
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
+
 
 
