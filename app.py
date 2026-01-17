@@ -410,7 +410,7 @@ word_definitions = {
     "wrest": "to pull (something) away with a forceful twisting movement.",
     "xeric": "requiring only a small amount of moisture (used mainly in ecology).",
     "yeoman": "a man holding and cultivating a small landed estate; a naval petty officer in charge of clerical work."
-    "youthfulness": "the state or quality of being young or youthful."
+    "youthfulness": "the state or quality of being young or youthful.",
 
 }
 
