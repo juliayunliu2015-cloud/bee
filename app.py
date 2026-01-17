@@ -481,9 +481,54 @@ if selected_group_name != "-- select --":
     if st.session_state.word_index < len(current_words):
         target_word = current_words[st.session_state.word_index]
         
-        st.subheader("Current Word:")
-        st.markdown(f"<h1 style='text-align: center; letter-spacing: 10px;'>{get_masked_word(target_word)}</h1>", unsafe_allow_html=True)
-        
+# --- Replacement Code Section ---
+
+if st.session_state.word_index < len(current_words):
+    target_word = current_words[st.session_state.word_index]
+    word_hint = get_masked_word(target_word)
+    
+    # 1. Audio Hint Button
+    if st.button("🔊 Click to Hear Word"):
+        audio_fp = text_to_speech(target_word)
+        st.audio(audio_fp, format="audio/mp3", autoplay=True)
+
+    # 2. Clean Text Input Box
+    # We use the masked word (e.g., _b__t_c) as the instruction label for the box
+    user_input = st.text_input(
+        label=f"Spell the word for: {word_hint}", 
+        placeholder="Type the full word here...",
+        key=f"input_{st.session_state.word_index}"
+    ).strip()
+    
+    # 3. Action Buttons
+    col1, col2 = st.columns([1, 4]) # Adjusts button width
+    
+    with col1:
+        if st.button("✅ Check"):
+            # Case sensitivity logic for proper nouns
+            if target_word in proper_nouns:
+                is_correct = (user_input == target_word)
+            else:
+                is_correct = (user_input.lower() == target_word.lower())
+            
+            if is_correct:
+                st.success(f"Correct!")
+                st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
+                # Use a small delay or a 'Next' button if you don't want it to skip immediately
+                if st.button("Next Word ➡️"):
+                    st.session_state.word_index += 1
+                    st.rerun()
+            else:
+                st.error(f"Incorrect. It is: {target_word}")
+                st.info(f"**Meaning:** {word_definitions.get(target_word, 'No definition found.')}")
+
+    with col2:
+        if st.button("⏭️ Skip"):
+            st.session_state.word_index += 1
+            st.rerun()
+
+
+            
         # Audio Hint
         if st.button("🔊 Hear Word Hint"):
             audio_fp = text_to_speech(target_word)
