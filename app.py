@@ -415,10 +415,9 @@ word_definitions = {
     "youthfulness": "the state or quality of being young or youthful.",
 
 }
-
 proper_nouns = ["Caribbean", "Edmonton", "Neolithic", "Québécois"]
 
-# --- 2. LOGIC FUNCTIONS ---
+# --- 2. LOGIC ---
 def get_masked_word(word):
     vowels = "aeiouAEIOU"
     masked = "".join(['_' if c in vowels else c for c in word])
@@ -430,7 +429,7 @@ def text_to_speech(text):
     tts.write_to_fp(fp)
     return fp
 
-# --- 3. PERSISTENT STATE ---
+# --- 3. SESSION STATE ---
 if 'mistakes' not in st.session_state:
     st.session_state.mistakes = []
 if 'shuffled_queue' not in st.session_state:
@@ -438,86 +437,73 @@ if 'shuffled_queue' not in st.session_state:
 if 'current_group_id' not in st.session_state:
     st.session_state.current_group_id = None
 
-# --- 4. REFINED ANIME UI STYLING ---
-st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨", layout="centered")
+# --- 4. ACCESSIBLE ANIME UI (HIGH CONTRAST) ---
+st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨")
 
 st.markdown("""
     <style>
-    /* Global Clean Font - No Comic Sans */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     
-    html, body, [class*="css"]  {
-        font-family: 'Poppins', 'Segoe UI', sans-serif !important;
-    }
-
+    /* Darker Background for better contrast against text */
     .stApp {
-        background: radial-gradient(circle at top, #2e004f 0%, #120024 100%);
+        background: radial-gradient(circle at top, #1e0033 0%, #0a001a 100%);
+        font-family: 'Poppins', sans-serif !important;
     }
 
-    /* Magical Glass Card */
+    /* Card background darkened for WCAG compliance */
     .magic-card {
-        background: rgba(255, 255, 255, 0.07);
-        backdrop-filter: blur(15px);
-        border-radius: 25px;
+        background: rgba(45, 10, 85, 0.9);
+        border-radius: 20px;
         padding: 30px;
-        border: 1px solid rgba(179, 157, 219, 0.3);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        border: 2px solid #9575cd;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
         margin-bottom: 25px;
     }
 
-    /* Refined Buttons */
-    .stButton>button {
-        background: linear-gradient(135deg, #9c27b0, #673ab7);
-        color: white !important;
-        border-radius: 12px;
-        border: none;
-        padding: 10px 20px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-    }
-    
-    .stButton>button:hover {
-        background: linear-gradient(135deg, #ba68c8, #9575cd);
-        box-shadow: 0 0 20px rgba(186, 104, 200, 0.6);
-        transform: translateY(-2px);
-    }
-
-    /* Glowing Titles */
-    h1 {
-        color: #f3e5f5 !important;
-        text-shadow: 0 0 15px rgba(225, 190, 231, 0.4);
+    /* High Contrast Text */
+    h1, h2, h3, .stMarkdown p {
+        color: #f3e5f5 !important; /* Off-white for readability */
         font-weight: 600 !important;
     }
 
-    /* Input Styling */
-    .stTextInput>div>div>input {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-        border-radius: 12px !important;
-        border: 2px solid #b39ddb !important;
-        color: #2e004f !important;
-        padding: 15px !important;
+    /* High Contrast Buttons */
+    .stButton>button {
+        background: #7b1fa2; /* Solid bright purple */
+        color: #ffffff !important;
+        border-radius: 10px;
+        border: 2px solid #e1bee7;
+        padding: 12px 24px;
         font-weight: 600;
+        width: 100%;
+    }
+    
+    .stButton>button:hover {
+        background: #9c27b0;
+        border-color: #ffffff;
     }
 
-    /* Sidebar Refinement */
-    [data-testid="stSidebar"] {
-        background-color: #0d001a !important;
-        border-right: 1px solid #331a4d;
+    /* High Contrast Input */
+    input {
+        background-color: #ffffff !important;
+        color: #1a0033 !important;
+        border: 3px solid #7b1fa2 !important;
+        border-radius: 8px !important;
+        font-weight: 600 !important;
     }
 
-    /* Metric/Text Colors */
-    .stMarkdown p, .stMarkdown h3 {
-        color: #d1c4e9 !important;
+    /* Accessibility focus on alerts */
+    .stAlert {
+        border-radius: 10px !important;
+        background-color: #2d0a55 !important;
+        color: #ffffff !important;
+        border: 2px solid #9575cd !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
 # --- 5. NAVIGATION ---
-st.sidebar.markdown("# 🌙 Magic Menu")
-page = st.sidebar.radio("Selection:", ["Daily Mission", "My Star Progress"])
+st.sidebar.markdown("# 🌙 Menu")
+page = st.sidebar.radio("Go to:", ["Daily Mission", "My Star Progress"])
 
 # --- PAGE 1: DAILY MISSION ---
 if page == "Daily Mission":
@@ -529,7 +515,7 @@ if page == "Daily Mission":
     group_options = [f"Scroll {i+1} ({g[0][0].upper()}-{g[-1][0].upper()})" for i, g in enumerate(groups)]
     
     st.markdown('<div class="magic-card">', unsafe_allow_html=True)
-    selected_group_name = st.selectbox("Choose a Magic Scroll to begin:", ["-- Select Scroll --"] + group_options)
+    selected_group_name = st.selectbox("Choose a Magic Scroll:", ["-- Select Scroll --"] + group_options)
     st.markdown('</div>', unsafe_allow_html=True)
 
     if selected_group_name != "-- Select Scroll --":
@@ -544,64 +530,53 @@ if page == "Daily Mission":
             target_word = st.session_state.shuffled_queue[0]
             word_hint = get_masked_word(target_word)
             
-            st.markdown(f"### 📖 Spell Energy: {len(st.session_state.shuffled_queue)} words to go")
+            st.markdown(f"### 📖 Spell Energy: {len(st.session_state.shuffled_queue)} left")
             
-            # --- WORD AREA ---
             st.markdown('<div class="magic-card">', unsafe_allow_html=True)
-            
-            st.write(f"**Mystery Word:** `{word_hint}`")
+            st.markdown(f"**Mystery Word:** `{word_hint}`")
             
             if st.button("🎵 Listen to the Word"):
                 st.audio(text_to_speech(target_word), format="audio/mp3", autoplay=True)
 
-            user_input = st.text_input(
-                "Cast your spell below:", 
-                key=f"input_{target_word}",
-                placeholder="Type the word carefully..."
-            ).strip()
+            user_input = st.text_input("Type the word here:", key=f"input_{target_word}").strip()
             
             if st.button("🪄 Cast Magical Spell!"):
                 is_correct = (user_input == target_word) if target_word in proper_nouns else (user_input.lower() == target_word.lower())
                 
                 if is_correct:
-                    st.balloons()
-                    st.success("✨ Perfect! The spell worked!")
+                    st.success("✨ Success! You cleared the word!")
                     st.session_state.shuffled_queue.pop(0) 
                     st.button("Continue ➡")
                 else:
-                    st.error(f"The magic fizzled! The word was: {target_word}")
+                    st.error(f"Try again! The word was: {target_word}")
                     if target_word not in st.session_state.mistakes:
                         st.session_state.mistakes.append(target_word)
-            
             st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.balloons()
-            st.success("🌈 Mission Accomplished! You are a Spelling Master!")
-            if st.button("Restart Scroll"):
-                st.session_state.current_group_id = None
-                st.rerun()
+            st.success("🌈 Scroll Complete! Great job, Vivian!")
 
-# --- PAGE 2: MY STAR PROGRESS ---
+# --- PAGE 2: PROGRESS ---
 elif page == "My Star Progress":
     st.title("⭐ Star Progress")
     
     st.markdown('<div class="magic-card">', unsafe_allow_html=True)
-    st.subheader("❌ Words to Review")
+    st.subheader("❌ Words to Practice")
     if not st.session_state.mistakes:
-        st.write("🌟 No mistakes found! You're doing amazing, Vivian!")
+        st.write("🌟 No mistakes yet! You're a spelling star, Vivian!")
     else:
         for m_word in st.session_state.mistakes:
             with st.expander(f"🔮 {m_word}"):
-                st.write(f"**Meaning:** {word_definitions.get(m_word, 'Search dictionary for details.')}")
+                st.write(word_definitions.get(m_word))
         
-        if st.button("Clear Mistake List"):
+        if st.button("Clear Practice List"):
             st.session_state.mistakes = []
             st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown('<div class="magic-card">', unsafe_allow_html=True)
-    st.subheader("🗑️ Reset Academy Data")
-    confirm = st.checkbox("I want to clear all history.")
+    st.subheader("🗑️ Reset All Progress")
+    confirm = st.checkbox("I am sure I want to reset everything.")
     if st.button("Reset All Data"):
         if confirm:
             st.session_state.mistakes = []
