@@ -485,7 +485,6 @@ page = st.sidebar.radio("Go to:", ["Daily Mission", "My Star Progress"])
 
 # --- PAGE 1: DAILY MISSION ---
 if page == "Daily Mission":
-    st.title("✨ Magical Academy")
     st.markdown("""
     <div style=" background-position: 50% 60%;background-image: linear-gradient(to right, rgba(26, 16, 34, 0.9) 0%, rgba(26, 16, 34, 0.2) 60%, rgba(26, 16, 34, 0) 100%), url(https://lh3.googleusercontent.com/aida-public/AB6AXuCr7AYPvVeqUPBshUWTIWJ2iXIQ-8K8woQJVGZzn3gXZOsD91x8eOwU5k1T9eDH0b8uekjykG9rQWN9kNidIOCSsd7p06J8IQ-11QKISWUKktStRsvX6OMpfJvCsTRYpo0Od6Lo3PzYt_R-4ub7Qf8h2gF39R8zVmMyA__pbMkAN2-H2q9T7SHEMfm5ULKJ1bkUS8YXaE2PlMU-5ep8QL2i4x-7ScztKYKjlG8ZguBjXW60PcBOj9SX88vAxsPyEuuZpbcOYlkE3Uc); padding:20px; border-radius:15px; text-align:center; margin-bottom:25px; border: 2px solid #DAA520;">
         <h1 style="color:#fff; margin:0; font-family: 'Arial Black', sans-serif; text-align: left;">GO FOR THE GOLD, VIVIAN!</h1>
@@ -566,3 +565,4 @@ elif page == "My Star Progress":
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
+
