@@ -4,7 +4,6 @@ import io
 import random
 
 # --- 1. DATA SETUP ---
-# (Keeping your list as is)
 
 # --- 1. Data Setup ---
 all_words = [
@@ -438,7 +437,7 @@ if 'shuffled_queue' not in st.session_state:
 if 'current_group_id' not in st.session_state:
     st.session_state.current_group_id = None
 
-# --- 4. ACCESSIBLE UI STYLING (REFINED COLOR) ---
+# --- 4. THEME & ACCESSIBILITY STYLING ---
 st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨")
 
 st.markdown("""
@@ -450,44 +449,41 @@ st.markdown("""
         font-family: 'Poppins', sans-serif !important;
     }
 
-    /* Fixed Label Colors - Making them clearly visible */
-    label, .stMarkdown p, h3 {
+    /* Target the text above inputs and selects specifically */
+    label, p, h3, .stMarkdown {
         color: #F3E5F5 !important;
         font-weight: 600 !important;
-        opacity: 1 !important;
     }
 
-    /* Selection & Input Backgrounds */
+    /* Style the actual Magic Box */
+    [data-testid="stVerticalBlock"] > div:has(div.stMarkdown) {
+        background: rgba(45, 10, 85, 0.95) !important;
+        border-radius: 20px;
+        padding: 20px;
+        border: 2px solid #9575cd;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        margin-bottom: 10px;
+    }
+
+    /* Input & Select Box visibility */
     .stSelectbox div[data-baseweb="select"], input {
         background-color: #ffffff !important;
         color: #1a0033 !important;
+        border: 2px solid #7b1fa2 !important;
         border-radius: 8px !important;
     }
 
-    /* The "Magical Box" UI */
-    .magic-container {
-        background: rgba(45, 10, 85, 0.9);
-        border-radius: 20px;
-        padding: 25px;
-        border: 2px solid #9575cd;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-
-    /* Button Styling */
+    /* Buttons */
     .stButton>button {
-        background: #7b1fa2;
+        background: #7b1fa2 !important;
         color: #ffffff !important;
-        border-radius: 10px;
-        border: 2px solid #e1bee7;
+        border: 2px solid #e1bee7 !important;
         font-weight: 600;
         width: 100%;
-        margin-top: 10px;
+        border-radius: 10px;
     }
-    
     .stButton>button:hover {
-        background: #9c27b0;
-        border-color: #ffffff;
+        background: #9c27b0 !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -500,18 +496,16 @@ page = st.sidebar.radio("Go to:", ["Daily Mission", "My Star Progress"])
 if page == "Daily Mission":
     st.title("✨ Magical Academy")
     
-    # 1. Group Selection Card
+    # Selection Container
     with st.container():
-        st.markdown('<div class="magic-container">', unsafe_allow_html=True)
         all_words.sort(key=str.lower)
         GROUP_SIZE = 33
         groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
         group_options = [f"Scroll {i+1} ({g[0][0].upper()}-{g[-1][0].upper()})" for i, g in enumerate(groups)]
         
         selected_group_name = st.selectbox("Choose a Magic Scroll:", ["-- Select Scroll --"] + group_options)
-        st.markdown('</div>', unsafe_allow_html=True)
 
-    # 2. Spelling Game Card
+    # Game Container
     if selected_group_name != "-- Select Scroll --":
         group_idx = group_options.index(selected_group_name)
         
@@ -525,9 +519,8 @@ if page == "Daily Mission":
             word_hint = get_masked_word(target_word)
             
             with st.container():
-                st.markdown('<div class="magic-container">', unsafe_allow_html=True)
                 st.write(f"### 📖 Spell Energy: {len(st.session_state.shuffled_queue)} left")
-                st.write(f"**Mystery Word:** `{word_hint}`")
+                st.write(f"Mystery Word: `{word_hint}`")
                 
                 if st.button("🎵 Listen to the Word"):
                     st.audio(text_to_speech(target_word), format="audio/mp3", autoplay=True)
@@ -538,27 +531,25 @@ if page == "Daily Mission":
                     is_correct = (user_input == target_word) if target_word in proper_nouns else (user_input.lower() == target_word.lower())
                     
                     if is_correct:
-                        st.success("✨ Success! You cleared the word!")
+                        st.success("✨ Success!")
                         st.session_state.shuffled_queue.pop(0) 
-                        st.button("Continue ➡")
+                        st.button("Next Word ➡")
                     else:
-                        st.error(f"Try again! The word was: {target_word}")
+                        st.error(f"The word was: {target_word}")
                         if target_word not in st.session_state.mistakes:
                             st.session_state.mistakes.append(target_word)
-                st.markdown('</div>', unsafe_allow_html=True)
         else:
             st.balloons()
-            st.success("🌈 Scroll Complete! Great job, Vivian!")
+            st.success("🌈 Mission Accomplished!")
 
 # --- PAGE 2: PROGRESS ---
 elif page == "My Star Progress":
     st.title("⭐ Star Progress")
     
     with st.container():
-        st.markdown('<div class="magic-container">', unsafe_allow_html=True)
         st.subheader("❌ Words to Practice")
         if not st.session_state.mistakes:
-            st.write("🌟 No mistakes yet! You're a spelling star!")
+            st.write("🌟 No mistakes found!")
         else:
             for m_word in st.session_state.mistakes:
                 with st.expander(f"🔮 {m_word}"):
@@ -567,16 +558,13 @@ elif page == "My Star Progress":
             if st.button("Clear Practice List"):
                 st.session_state.mistakes = []
                 st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
 
     with st.container():
-        st.markdown('<div class="magic-container">', unsafe_allow_html=True)
-        st.subheader("🗑️ Reset All Progress")
-        confirm = st.checkbox("I am sure I want to reset everything.")
+        st.subheader("🗑️ Reset Academy")
+        confirm = st.checkbox("Confirm Reset")
         if st.button("Reset All Data"):
             if confirm:
                 st.session_state.mistakes = []
                 st.session_state.shuffled_queue = []
                 st.session_state.current_group_id = None
                 st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
