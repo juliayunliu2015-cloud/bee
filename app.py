@@ -1,3 +1,9 @@
+import streamlit as st
+from gtts import gTTS
+import io
+import random
+
+# --- 1. DATA SETUP ---
 
 # --- 1. Data Setup ---
 all_words = [
@@ -5,6 +11,7 @@ all_words = [
 ]
 
 word_definitions = {
+    # ... (Keep your word_definitions dictionary as it was)
   "abiotic": "relating to or derived from non-living things.",
     "abreast": "side-by-side and facing the same way; kept up to date with the latest information.",
     "abscise": "to cut off or away; detach by shedding (used primarily in biology).",
@@ -408,3 +415,154 @@ word_definitions = {
     "youthfulness": "the state or quality of being young or youthful.",
 
 }
+proper_nouns = ["Caribbean", "Edmonton", "Neolithic", "Québécois"]
+
+# --- 2. LOGIC ---
+def get_masked_word(word):
+    vowels = "aeiouAEIOU"
+    masked = "".join(['_' if c in vowels else c for c in word])
+    return masked if word in proper_nouns else masked.lower()
+
+def text_to_speech(text):
+    tts = gTTS(text=text, lang='en', tld='ca')
+    fp = io.BytesIO()
+    tts.write_to_fp(fp)
+    return fp
+
+# --- 3. SESSION STATE ---
+if 'mistakes' not in st.session_state:
+    st.session_state.mistakes = []
+if 'shuffled_queue' not in st.session_state:
+    st.session_state.shuffled_queue = []
+if 'current_group_id' not in st.session_state:
+    st.session_state.current_group_id = None
+
+# --- 4. THEME & ACCESSIBILITY STYLING ---
+st.set_page_config(page_title="Vivian's Magical Spelling", page_icon="✨")
+
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    
+    .stApp {
+        background: radial-gradient(circle at top, #1e0033 0%, #0a001a 100%);
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    /* Target the text above inputs and selects specifically */
+    label, p, h3, .stMarkdown {
+        color: #F3E5F5 !important;
+        font-weight: 600 !important;
+    }
+
+
+    /* Input & Select Box visibility */
+    .stSelectbox div[data-baseweb="select"], input {
+        background-color: #ffffff !important;
+        color: #1a0033 !important;
+        border: 2px solid #7b1fa2 !important;
+        border-radius: 8px !important;
+    }
+
+    /* Buttons */
+    .stButton>button {
+        background: #7b1fa2 !important;
+        color: #ffffff !important;
+        border: 2px solid #e1bee7 !important;
+        font-weight: 600;
+        width: 100%;
+        border-radius: 10px;
+    }
+    .stButton>button:hover {
+        background: #9c27b0 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
+# --- 5. NAVIGATION ---
+st.sidebar.markdown("# 🌙 Menu")
+page = st.sidebar.radio("Go to:", ["Daily Mission", "My Star Progress"])
+
+# --- PAGE 1: DAILY MISSION ---
+if page == "Daily Mission":
+    st.title("✨ Magical Academy")
+    st.markdown("""
+    <div style=" background-position: 50% 60%;background-image: linear-gradient(to right, rgba(26, 16, 34, 0.9) 0%, rgba(26, 16, 34, 0.2) 60%, rgba(26, 16, 34, 0) 100%), url(https://lh3.googleusercontent.com/aida-public/AB6AXuCr7AYPvVeqUPBshUWTIWJ2iXIQ-8K8woQJVGZzn3gXZOsD91x8eOwU5k1T9eDH0b8uekjykG9rQWN9kNidIOCSsd7p06J8IQ-11QKISWUKktStRsvX6OMpfJvCsTRYpo0Od6Lo3PzYt_R-4ub7Qf8h2gF39R8zVmMyA__pbMkAN2-H2q9T7SHEMfm5ULKJ1bkUS8YXaE2PlMU-5ep8QL2i4x-7ScztKYKjlG8ZguBjXW60PcBOj9SX88vAxsPyEuuZpbcOYlkE3Uc); padding:20px; border-radius:15px; text-align:center; margin-bottom:25px; border: 2px solid #DAA520;">
+        <h1 style="color:#fff; margin:0; font-family: 'Arial Black', sans-serif; text-align: left;">GO FOR THE GOLD, VIVIAN!</h1>
+        <p style="color:#fff; font-size:1.2rem; font-weight:bold; margin:10px 0 0 0;text-align: left;">
+            "Every word you master today is a step closer to the 2026 Trophy! 🐝✨"
+        </p>
+    </div>
+""", unsafe_allow_html=True)
+    # Selection Container
+    with st.container():
+        all_words.sort(key=str.lower)
+        GROUP_SIZE = 33
+        groups = [all_words[i:i + GROUP_SIZE] for i in range(0, len(all_words), GROUP_SIZE)]
+        group_options = [f"Scroll {i+1} ({g[0][0].upper()}-{g[-1][0].upper()})" for i, g in enumerate(groups)]
+        
+        selected_group_name = st.selectbox("Choose a Magic Scroll:", ["-- Select Scroll --"] + group_options)
+
+    # Game Container
+    if selected_group_name != "-- Select Scroll --":
+        group_idx = group_options.index(selected_group_name)
+        
+        if st.session_state.current_group_id != group_idx:
+            st.session_state.current_group_id = group_idx
+            st.session_state.shuffled_queue = list(groups[group_idx])
+            random.shuffle(st.session_state.shuffled_queue)
+
+        if len(st.session_state.shuffled_queue) > 0:
+            target_word = st.session_state.shuffled_queue[0]
+            word_hint = get_masked_word(target_word)
+            
+            with st.container():
+                st.write(f"### 📖 Spell Energy: {len(st.session_state.shuffled_queue)} left")
+                st.write(f"Mystery Word: `{word_hint}`")
+                
+                if st.button("🎵 Listen to the Word"):
+                    st.audio(text_to_speech(target_word), format="audio/mp3", autoplay=True)
+
+                user_input = st.text_input("Type the word here:", key=f"input_{target_word}").strip()
+                
+                if st.button("🪄 Cast Magical Spell!"):
+                    is_correct = (user_input == target_word) if target_word in proper_nouns else (user_input.lower() == target_word.lower())
+                    
+                    if is_correct:
+                        st.success("✨ Success!")
+                        st.session_state.shuffled_queue.pop(0) 
+                        st.button("Next Word ➡")
+                    else:
+                        st.error(f"The word was: {target_word}")
+                        if target_word not in st.session_state.mistakes:
+                            st.session_state.mistakes.append(target_word)
+        else:
+            st.balloons()
+            st.success("🌈 Mission Accomplished!")
+
+# --- PAGE 2: PROGRESS ---
+elif page == "My Star Progress":
+    st.title("⭐ Star Progress")
+    
+    with st.container():
+        st.subheader("❌ Words to Practice")
+        if not st.session_state.mistakes:
+            st.write("🌟 No mistakes found!")
+        else:
+            for m_word in st.session_state.mistakes:
+                with st.expander(f"🔮 {m_word}"):
+                    st.write(word_definitions.get(m_word))
+            
+            if st.button("Clear Practice List"):
+                st.session_state.mistakes = []
+                st.rerun()
+
+    with st.container():
+        st.subheader("🗑️ Reset Academy")
+        confirm = st.checkbox("Confirm Reset")
+        if st.button("Reset All Data"):
+            if confirm:
+                st.session_state.mistakes = []
+                st.session_state.shuffled_queue = []
+                st.session_state.current_group_id = None
+                st.rerun()
